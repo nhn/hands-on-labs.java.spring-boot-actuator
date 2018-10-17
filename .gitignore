@@ -2,9 +2,9 @@
 !.mvn/wrapper/maven-wrapper.jar
 
 ### RST ###
-/_build/
-/_static/
-/_templates/
+/site/_build/
+/site/_static/
+/site/_templates/
 
 ### STS ###
 .apt_generated

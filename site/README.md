@@ -3,7 +3,7 @@
 ## Sphinx 설치
 
 ```bash
-pip3 install sphinx
+brew install sphinx-doc
 ```
 
 **HTML 문서 만들기**

@@ -19,14 +19,14 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'spring-boot-actuator-level1'
-copyright = '2018, jordan'
-author = 'jordan'
+project = u'spring-boot-actuator.level1'
+copyright = u'2018, Jordan'
+author = u'Jordan'
 
 # The short X.Y version
-version = ''
+version = u''
 # The full version, including alpha/beta/rc tags
-release = ''
+release = u''
 
 
 # -- General configuration ---------------------------------------------------
@@ -58,12 +58,12 @@ master_doc = 'index'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = 'ko'
+language = u'ko'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = [u'_build', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = None
@@ -128,8 +128,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'spring-boot-actuator-level1.tex', 'spring-boot-actuator-level1 Documentation',
-     'jordan', 'manual'),
+    (master_doc, 'spring-boot-actuator-level1.tex', u'spring-boot-actuator-level1 Documentation',
+     u'Jordan', 'manual'),
 ]
 
 
@@ -138,7 +138,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'spring-boot-actuator-level1', 'spring-boot-actuator-level1 Documentation',
+    (master_doc, 'spring-boot-actuator-level1', u'spring-boot-actuator-level1 Documentation',
      [author], 1)
 ]
 
@@ -149,7 +149,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'spring-boot-actuator-level1', 'spring-boot-actuator-level1 Documentation',
+    (master_doc, 'spring-boot-actuator-level1', u'spring-boot-actuator-level1 Documentation',
      author, 'spring-boot-actuator-level1', 'One line description of project.',
      'Miscellaneous'),
 ]

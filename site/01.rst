@@ -1,0 +1,22 @@
+*****
+개요
+*****
+
+학습할 내용
+=========
+
+* 스프링 액추에이터를 알아보자
+
+준비물
+======
+
+* JDK 8 (9버전 이상 금지)
+* Maven 3
+    * https://maven.apache.org/install.html
+* IntelliJ Commumity Edition
+    * https://www.jetbrains.com/idea/download
+
+* https://github.com/nhnent/hands-on-labs.java.spring-boot-actuator.level1
+
+
+

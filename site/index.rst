@@ -1,20 +1,15 @@
-.. spring-boot-actuator-level1 documentation master file, created by
-   sphinx-quickstart on Wed Oct 17 22:02:22 2018.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+******************************
+스프링부트 액추에이터 체험하기
+******************************
 
-Welcome to spring-boot-actuator-level1's documentation!
-=======================================================
+* 카테고리: API
+* 레벨: 초급
+* 시간: 15분
+* 업데이트: 2018.10.17
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 1
+   :numbered:
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   01
+   02

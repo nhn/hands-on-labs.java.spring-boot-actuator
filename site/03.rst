@@ -1,11 +1,11 @@
-**************************
+==========================
 액추에이터 웹 엔드포인트
-**************************
+==========================
 
 기본 엔드포인트 확인
 =============================
 
-http://localhost:8080/actuator 에 접속해서 Web 환경에서 기본으로 제공되는 엔드포인트를 확인해보자
+http://localhost:8080/actuator 에 접속해서 웹 환경에서 기본으로 제공되는 엔드포인트를 확인해보자
 
 .. code-block:: json
 
@@ -28,28 +28,25 @@ http://localhost:8080/actuator 에 접속해서 Web 환경에서 기본으로 �
 
 * 기본적으로 Web 환경에는 `health`, `info` 2가지의 엔드포인트를 제공한다.
 
-Web 엔드포인트
+웹 엔드포인트
 =============================
 
-Web 환경에서 액추에이터의 모든 엔드포인트에 접근할 수 있게 설정해보자. 아래에 스프링 부트 레퍼런스 문서 일부를 힌트로 제공한다.
+액추에이터의 모든 웹 엔드포인트에 접근할 수 있게 설정해보자. 아래에 스프링 부트 레퍼런스 문서 일부를 힌트로 제공한다.
 
-Hint : Spring Boot reference
+Hint : Spring Boot Reference
 ---------------------------------
 
 To change which endpoints are exposed, use the following technology-specific ``include`` and ``exclude`` properties:
 
 
-+-----------------------------------------------+------------------------+
-| Property                                      | Default                |
-+===============================================+========================+
-| ``management.endpoints.jmx.exposure.exclude`` |                        |
-+-----------------------------------------------+------------------------+
-| ``management.endpoints.jmx.exposure.include`` | ``*``                  |
-+-----------------------------------------------+------------------------+
-| ``management.endpoints.web.exposure.exclude`` |                        |
-+-----------------------------------------------+------------------------+
-| ``management.endpoints.web.exposure.include`` |  ``info``, ``health``  |
-+-----------------------------------------------+------------------------+
+================================================  =========================
+Property                                          Default
+================================================  =========================
+``management.endpoints.jmx.exposure.exclude``
+``management.endpoints.jmx.exposure.include``     ``*``
+``management.endpoints.web.exposure.exclude``
+``management.endpoints.web.exposure.include``     ``info``, ``health``
+================================================  =========================
 
 
 
@@ -68,6 +65,8 @@ For example, to stop exposing all endpoints over JMX and only expose the ``healt
     management.endpoints.web.exposure.include=*
     management.endpoints.web.exposure.exclude=env,beans
 
+
+:Note: 아래 답이 나오기 전에 직접 해봅시다.
 
 모든 Web 엔드포인트를 오픈하는 구성
 -----------------------------------
@@ -110,54 +109,122 @@ For example, to stop exposing all endpoints over JMX and only expose the ``healt
         }
     }
 
-주요 Web 엔드포인트
+주요 웹 엔드포인트
 =============================
 
-beans
+주요 웹 엔드포인트가 무엇인지 알아보고 한 번씩 엔드포인트에 직접 접근해보자
+
+``beans``
 ----------------
 
-health
+애플리케이션의 모든 Spring Bean의 전체 목록을 표시
+
+* json을 직접 눈으로 보기에는 너무 정보가 많다.
+* http://localhost:8080/actuator/beans
+
+``health``
 ----------------
 
-5장에서 상세히
+애플리케이션의 상태 정보를 표시. **필수적으로 사용하는 엔드포인트**
 
-conditions
+* 일반적으로 LoadBalancer(ex:L4)나 Service Registry(ex:Netflix-Eureka, Consul)에서 해당 애플리케이션 인스턴스의 상태 정보를 확인한다.
+* http://localhost:8080/actuator/health
+
+:Note: `5장`_ 에서 자세히 알아보자
+
+``conditions``
 ----------------
 
-configprops
+스프링 부트의 자동설정(``*AutoConfiguration``)과 개발자가 직접 구성한 설정에서 평가된 조건(``@Conditional``)에 관한 정보.
+평가가 성공되면 해당 설정이 로딩되고 실패하면 무시한다.
+
+스프링 부트는 자동설정의 평가조건(``@Conditional``)에 따라서 설정이 로딩되거나 무시된다.
+
+* http://localhost:8080/actuator/conditions
+* 평가가 성공했으면 ``positiveMatches`` 속성의 항목, 실패했으면 ``negativeMatches`` 속성의 항목이 된다.
+* 각 평가에 대한 성공/실패 메시지가 표시된다.
+
+  * 성공 예시 : ``@ConditionalOnEnabledHealthIndicator management.health.defaults.enabled is considered true``
+  * 실패 예시 : ``@ConditionalOnClass did not find required class 'com.google.gson.Gson'``
+
+``configprops``
 ----------------
 
-env
+``@ConfigurationProperties`` 에 대한 정보가 표시된다.
+
+* http://localhost:8080/actuator/configprops
+
+``env``
 ----------------
 
-info
+스프링의 모든 환경변수 정보를 표시한다.
+
+* http://localhost:8080/actuator/env
+* 애플리케이션 변수들(``application.properties``) 노출
+* OS, JVM 환경변수들 노출
+
+``info``
 ----------------
 
-4장에서 커스터마이징해보자
+임의의 애플리케이션 정보를 표시합니다. *default* : 정보없음
 
-logfile
+* http://localhost:8080/actuator/info
+
+:Note: `4장`_ 에서 자세히 알아보자
+
+``logfile``
 ----------------
 
-loggers
+로그 파일의 내용을 반환합니다.
+
+* 현재 웹 애플리케이션 상태에서는 노출되지 않음. 아래 2가지 조건을 만족해야함
+
+  * ``logging.file`` 또는 ``logging.path`` 부트 속성을 이용해서 로그 파일 출력이 활성화
+  * 웹 애플리케이션
+
+:Note: 현재 샘플 애플리케이션은 웹 애플리케이션 이긴 하지만 로그파일 출력 설정이 되어 있지 않기 때문에 노출되지 않음.
+                고로 ``application.properties`` 에 ``logging.file`` 속성을 추가해야함
+
+``src/main/resources/application.properties``
+
+.. code-block:: properties
+
+    logging.file=target/application.log
+
+위와 같이 설정하고 애플리 케이션을 재가동 후 아래 엔드포인트에 접근하면 로그를 확인할 수 있다.
+추가적으로 `HTTP range requests`_ 를 통해서 로그의 특정 범위만 요청하거나 분할 요청할 수 있다.
+
+* http://localhost:8080/actuator/logfile
+
+
+``loggers``
 ----------------
 
-heapdump
+``heapdump``
 ----------------
 
-threaddump
+``threaddump``
 ----------------
 
-metrics
+``metrics``
 ----------------
 
-httptrace
+``httptrace``
 ----------------
 
-mappings
+``mappings``
 ----------------
 
-shutdown
+``shutdown``
 ----------------
 
-6장에서 자세히 알아보자
+:Note: `6장`_ 에서 자세히 알아보자
 
+
+.. _4장: 04.html
+
+.. _5장: 05.html
+
+.. _6장: 06.html
+
+.. _`HTTP range requests`: https://developer.mozilla.org/ko/docs/Web/HTTP/Range_requests

@@ -1,9 +1,9 @@
-**********************
+==============================
 스프링 부트 애플리케이션 생성
-**********************
+==============================
 
 Spring Initializr로 프로젝트 생성
-=============================
+======================================
 
 https://start.spring.io/ 에 접속
 
@@ -17,7 +17,7 @@ Generate a ``Maven Project`` with ``java`` and Spring Boot ``2.0.6``
 
 **Generate Project** 로 프로젝트 생성
 
-* 의존성에 꼭 ``Web``을 추가하도록 하자(스크린 샷에는 가려져서 안 보임)
+* 의존성에 꼭 ``Web`` 을 추가하도록 하자(스크린 샷에는 가려져서 안 보임)
 * ``spring-boot-actuator-level1.zip`` 파일을 다운로드 해서 적절한 위치에 압축해제
 
 IntelliJ에 프로젝트 추가
@@ -37,15 +37,16 @@ IntelliJ에 프로젝트 추가
 
 .. image:: images/02/intellij-import4.png
 
-* 계속 `Next`를 누르다보면 JDK를 설정하면 화면에서 꼭 **1.8**을 선택해야함
-* 만약 **1.8**이 없으면 좌측 상단 `+` 버튼을 클릭해서 직접 설정해야함
+* 계속 ``Next`` 를 누르다보면 JDK를 설정하면 화면에서 꼭 **1.8** 을 선택해야함
+* 만약 **1.8** 이 없으면 좌측 상단 ``+`` 버튼을 클릭해서 직접 설정해야함
 
-그 후 계속 `Next`를 누르면 해당 프로젝트로 IntelliJ 가 기동됨
+그 후 계속 ``Next`` 를 누르면 해당 프로젝트로 IntelliJ 가 기동됨
 
 pom.xml 확인
 ===============================
 
 .. code-block:: xml
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

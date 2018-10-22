@@ -13,6 +13,3 @@ cd ./site
 make html
 # ./_build/html 경로로 생성
 ```
-
-
-

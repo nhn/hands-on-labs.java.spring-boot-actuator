@@ -1,0 +1,163 @@
+**************************
+액추에이터 웹 엔드포인트
+**************************
+
+기본 엔드포인트 확인
+=============================
+
+http://localhost:8080/actuator 에 접속해서 Web 환경에서 기본으로 제공되는 엔드포인트를 확인해보자
+
+.. code-block:: json
+
+    {
+        "_links": {
+            "self": {
+                "href": "http://localhost:8080/actuator",
+                "templated": false
+            },
+            "health": {
+                "href": "http://localhost:8080/actuator/health",
+                "templated": false
+            },
+            "info": {
+                "href": "http://localhost:8080/actuator/info",
+                "templated": false
+            }
+        }
+    }
+
+* 기본적으로 Web 환경에는 `health`, `info` 2가지의 엔드포인트를 제공한다.
+
+Web 엔드포인트
+=============================
+
+Web 환경에서 액추에이터의 모든 엔드포인트에 접근할 수 있게 설정해보자. 아래에 스프링 부트 레퍼런스 문서 일부를 힌트로 제공한다.
+
+Hint : Spring Boot reference
+---------------------------------
+
+To change which endpoints are exposed, use the following technology-specific ``include`` and ``exclude`` properties:
+
+
++-----------------------------------------------+------------------------+
+| Property                                      | Default                |
++===============================================+========================+
+| ``management.endpoints.jmx.exposure.exclude`` |                        |
++-----------------------------------------------+------------------------+
+| ``management.endpoints.jmx.exposure.include`` | ``*``                  |
++-----------------------------------------------+------------------------+
+| ``management.endpoints.web.exposure.exclude`` |                        |
++-----------------------------------------------+------------------------+
+| ``management.endpoints.web.exposure.include`` |  ``info``, ``health``  |
++-----------------------------------------------+------------------------+
+
+
+
+The include property lists the IDs of the endpoints that are exposed. The ``exclude`` property lists the IDs of the endpoints that should not be exposed. The exclude property takes precedence over the ``include`` property. Both include and exclude properties can be configured with a list of endpoint IDs.
+
+For example, to stop exposing all endpoints over JMX and only expose the ``health`` and ``info`` endpoints, use the following property:
+
+.. code-block:: properties
+
+    management.endpoints.jmx.exposure.include=health,info
+
+``*`` can be used to select all endpoints. For example, to expose everything over HTTP except the ``env`` and ``beans`` endpoints, use the following properties:
+
+.. code-block:: properties
+
+    management.endpoints.web.exposure.include=*
+    management.endpoints.web.exposure.exclude=env,beans
+
+
+모든 Web 엔드포인트를 오픈하는 구성
+-----------------------------------
+
+``src/main/resources/application.properties`` 파일을 아래 속성을 추가한다.
+
+.. code-block:: properties
+
+    management.endpoints.web.exposure.include=*
+
+모든 Web 엔드포인트를 오픈하는 구성 확인
+-------------------------------------------
+
+.. image:: images/03/application-restart.png
+
+* 애플리케이션을 재시작한 후
+* http://localhost:8080/actuator 를 확인하면 아래와 같은 결과를 확인할 수 있습니다.
+
+.. code-block:: json
+
+    {
+        "_links": {
+            "self": {
+                "href": "http://localhost:8080/actuator",
+                "templated": false
+            },
+            "auditevents": {
+                "href": "http://localhost:8080/actuator/auditevents",
+                "templated": false
+            },
+            "beans": {
+                "href": "http://localhost:8080/actuator/beans",
+                "templated": false
+            },
+            "health": {
+                "href": "http://localhost:8080/actuator/health",
+                "templated": false
+            },
+            "#주석" : "이하 중략"
+        }
+    }
+
+주요 Web 엔드포인트
+=============================
+
+beans
+----------------
+
+health
+----------------
+
+5장에서 상세히
+
+conditions
+----------------
+
+configprops
+----------------
+
+env
+----------------
+
+info
+----------------
+
+4장에서 커스터마이징해보자
+
+logfile
+----------------
+
+loggers
+----------------
+
+heapdump
+----------------
+
+threaddump
+----------------
+
+metrics
+----------------
+
+httptrace
+----------------
+
+mappings
+----------------
+
+shutdown
+----------------
+
+6장에서 자세히 알아보자
+

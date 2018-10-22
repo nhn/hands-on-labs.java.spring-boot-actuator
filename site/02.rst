@@ -7,30 +7,33 @@ Spring Initializr로 프로젝트 생성
 
 https://start.spring.io/ 에 접속
 
-* Group : `com.nhnent.forward`
-* Artifact : `spring-boot-actuator-level1`
-* Dependencies : `Web, Actuator`
+Generate a ``Maven Project`` with ``java`` and Spring Boot ``2.0.6``
+
+* Group : ``com.nhnent.forward``
+* Artifact : ``spring-boot-actuator-level1``
+* Dependencies : ``Web``, ``Actuator``
 
 .. image:: images/02/spring-initializr.png
 
 **Generate Project** 로 프로젝트 생성
 
-* `spring-boot-actuator-level1.zip` 파일을 다운로드 해서 적절한 위치에 압축해제
+* 의존성에 꼭 ``Web``을 추가하도록 하자(스크린 샷에는 가려져서 안 보임)
+* ``spring-boot-actuator-level1.zip`` 파일을 다운로드 해서 적절한 위치에 압축해제
 
 IntelliJ에 프로젝트 추가
 =============================
 
 .. image:: images/02/intellij-import1.png
 
-* `Import Project` 를 선택해서 방금 전 압축을 푼 프로젝트의 폴더를 선택한다.
+* ``Import Project`` 를 선택해서 방금 전 압축을 푼 프로젝트의 폴더를 선택한다.
 
 .. image:: images/02/intellij-import2.png
 
-* `Import project from external model`를 체크하고 `Maven`을 선택하고 `Next`를 클릭
+* ``Import project from external model`` 를 체크하고 ``Maven`` 을 선택하고 ``Next`` 를 클릭
 
 .. image:: images/02/intellij-import3.png
 
-* `Import Maven projects automatically` 를 체크하고 `Next`를 클릭
+* ``Import Maven projects automatically`` 를 체크하고 ``Next`` 를 클릭
 
 .. image:: images/02/intellij-import4.png
 
@@ -43,23 +46,14 @@ pom.xml 확인
 ===============================
 
 .. code-block:: xml
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 	</dependencies>
 

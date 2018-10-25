@@ -60,13 +60,15 @@
 
 .. code-block:: json
 
-    "spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties": {
-        "prefix": "spring.datasource",
-        "properties": {
-            "password": "******",
-            "driverClassName": "com.mysql.jdbc.Driver",
-            "url": "jdbc:mysql://1.1.1.1:3306/db
-            "username": "username"
+    {
+        "spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties": {
+            "prefix": "spring.datasource",
+            "properties": {
+                "password": "******",
+                "driverClassName": "com.mysql.jdbc.Driver",
+                "url": "jdbc:mysql://1.1.1.1:3306/db",
+                "username": "username"
+            }
         }
     }
 
@@ -84,8 +86,10 @@
 
 .. code-block:: json
 
-    "spring.datasource.password": {
-        "value": "******"
+    {
+        "spring.datasource.password": {
+            "value": "******"
+        }
     }
 
 
@@ -157,7 +161,7 @@
 
 **2. DEBUG로 변경**
 
-.. code-block:: http
+.. code-block:: text
 
     POST http://localhost:8080/actuator/loggers/com.nhnent.forward.springbootactuatorlevel1
 

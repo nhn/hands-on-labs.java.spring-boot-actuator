@@ -1,5 +1,5 @@
 ==========================
-주요 웹 엔드포인트
+주요 엔드포인트
 ==========================
 
 주요 웹 엔드포인트가 무엇인지 알아보고 한 번씩 엔드포인트에 직접 접근해보자
@@ -58,19 +58,19 @@
 
 :Tips: ``management.endpoint.configprops.keys-to-sanitize`` 속성을 통해서 민감한 속성은 가릴 수 있다. 예를 들면 비밀번호나 토큰과 같은 정보는 보안 상 노출 시키는 것이 위험하기 때문이다.
 
-.. code-block:: json
+    .. code-block:: json
 
-    {
-        "spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties": {
-            "prefix": "spring.datasource",
-            "properties": {
-                "password": "******",
-                "driverClassName": "com.mysql.jdbc.Driver",
-                "url": "jdbc:mysql://1.1.1.1:3306/db",
-                "username": "username"
+        {
+            "spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties": {
+                "prefix": "spring.datasource",
+                "properties": {
+                    "password": "******",
+                    "driverClassName": "com.mysql.jdbc.Driver",
+                    "url": "jdbc:mysql://1.1.1.1:3306/db",
+                    "username": "username"
+                }
             }
         }
-    }
 
 
 ``env``
@@ -84,13 +84,13 @@
 
 :Tips: ``management.endpoint.env.keys-to-sanitize`` 속성을 통해서 민감한 속성은 가릴 수 있다. 예를 들면 비밀번호나 토큰과 같은 정보는 보안 상 노출 시키는 것이 위험하기 때문이다.
 
-.. code-block:: json
+    .. code-block:: json
 
-    {
-        "spring.datasource.password": {
-            "value": "******"
+        {
+            "spring.datasource.password": {
+                "value": "******"
+            }
         }
-    }
 
 
 
@@ -172,7 +172,7 @@
 
 * ``com.nhnent.forward.springbootactuatorlevel1`` 에 대한 로그 레벨을 ``DEBUG`` 로 변경
 
-**2. DEBUG로 변경 확인**
+**3. DEBUG로 변경 확인**
 
 ``GET http://localhost:8080/actuator/loggers/com.nhnent.forward.springbootactuatorlevel1``
 
@@ -202,6 +202,7 @@ GZip으로 압축된 hprof 힙 덤프 파일을 다운로드
 * 웹 애플리케이션 경우에만 사용 가능.
 
 :Warning: Java 애플리케이션에서 **STW(Stop The world)** 가 발생하므로 운영 중인 서비스에서는 사용하지 않는 것이 좋다.
+
 
 :Tips: `Eclipse Mat`_ 같은 JVM 메모리 분석 도구를 이용해서 해당 내용을 분석할 수 있다.
 

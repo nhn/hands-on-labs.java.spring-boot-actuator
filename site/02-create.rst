@@ -11,13 +11,13 @@ Generate a ``Maven Project`` with ``java`` and Spring Boot ``2.0.6``
 
 * Group : ``com.nhnent.forward``
 * Artifact : ``spring-boot-actuator-level1``
-* Dependencies : ``Web``, ``Actuator``
+* **Dependencies** : ``Web``, ``Actuator``, ``DevTools``
 
 .. image:: images/02/spring-initializr.png
 
 **Generate Project** 로 프로젝트 생성
 
-* 의존성에 꼭 ``Web`` 을 추가하도록 하자(스크린 샷에는 가려져서 안 보임)
+* 의존성에 꼭 ``Web``, ``DevTools`` 을 추가하도록 하자(스크린 샷에는 가려져서 안 보임)
 * ``spring-boot-actuator-level1.zip`` 파일을 다운로드 해서 적절한 위치에 압축해제
 
 IntelliJ에 프로젝트 추가
@@ -47,19 +47,23 @@ pom.xml 확인
 
 .. code-block:: xml
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
 
 * 위와 같은 구성으로 확인되면 OK
-
 
 spring-boot 애플리케이션 테스트
 ===============================

@@ -1,5 +1,5 @@
 ==================================
-액추에이터 웹 엔드포인트 구성
+엔드포인트 구성
 ==================================
 
 기본 웹 엔드포인트 확인
@@ -142,7 +142,8 @@ For example, to stop exposing all endpoints over JMX and only expose the ``healt
 
 .. code-block:: properties
 
-    management.endpoints.enabled-by-default=    # 모든 엔드포인트들을 전체 활성화시키거나 비활성화. 비어 있으면 각 엔드포인트 활성화 설정에 위임
+    # 모든 엔드포인트들을 전체 활성화시키거나 비활성화. 비어 있으면 각 엔드포인트 활성화 설정에 위임
+    management.endpoints.enabled-by-default=
     management.endpoint.beans.enabled=true
     management.endpoint.conditions.enabled=true
     management.endpoint.configprops.enabled=true
@@ -152,7 +153,8 @@ For example, to stop exposing all endpoints over JMX and only expose the ``healt
     management.endpoint.loggers.enabled=true
     management.endpoint.mappings.enabled=true
     management.endpoint.prometheus.enabled=true
-    management.endpoint.shutdown.enabled=false  # shutdown 엔드포인트는 기본이 비활성화
+    # shutdown 엔드포인트는 기본이 비활성화
+    management.endpoint.shutdown.enabled=false
 
 
 :Warning: ``shutdown`` 엔드포인트는 애플리케이션을 종료시킬 수 있기 때문에 기본이 비활성화. 만약 사용할 경우 보안적으로 권한이 요구되는 설정이 필수로 해야함

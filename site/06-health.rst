@@ -144,6 +144,31 @@ http://localhost:8080/actuator/health 에 접근해 봅시다.
 
 해당 애플리케이션은 `Redis` 를 캐시 용도로 사용하는데, 만약 `Redis` 인프라가 shutdown 되거나 연결된 네트워크에 이상이 생기면, 즉 `Redis` 상태가 **DOWN** 된다면 애플리케이션 또한 **DOWN** 상태가 될 것 입니다.
 
+.. code-block:: json
+
+    {
+        "status" : "DOWN",
+        "details" : {
+            "diskSpace" : {
+                "status" : "UP"
+            },
+            "db" : {
+                "status" : "UP"
+            },
+            "redis" : {
+                "status" : "DOWN"
+            },
+            "elasticsearch" : {
+                "status" : "UP"
+            },
+            "rabbitmq" : {
+                "status" : "UP"
+            }
+        }
+    }
+
+* `Redis` 가 다운된 경우 ``health`` 엔드포인트 응답
+
 장애가 전파되면서 (`Redis` -> `Application`) 해당 애플리케이션은 사용할 수 없게 될 것 입니다. 하지만 `Redis` 가 **DOWN** 됐다고 해서 애플리케이션이 DOWN 되지 않고 **가용성을 확보해야** 할 것 입니다.
 
 그렇다면 ``health`` 설정을 어떻게 해야할까요?
@@ -158,7 +183,7 @@ http://localhost:8080/actuator/health 에 접근해 봅시다.
 * 바로 위와 같이 ``health`` 엔드포인트에 `Redis` 상태가 포함되지 않게 비활성화 시키면 됩니다.
 
 일반적으로 `DiskSpace` 나 `DB` 가 DOWN 되면 아마도 애플리케이션은 정상적인 서비스가 불가능 할 것 입니다.
-하지만 `Redis`, `ElasitcSearch`, `Rabbitmq` 와 같은 인프라가 DOWN 될지라고 서비스는 사용가능하게 가용성을 확보해야할 것 같습니다.
+하지만 `Redis`, `Elasticsearch`, `Rabbitmq` 와 같은 인프라가 DOWN 될지라도 서비스는 가용성을 확보해야할 것 같습니다.
 
 그렇다면 아래와 같이 설정을 하는 것을 추천합니다.
 
@@ -166,7 +191,7 @@ http://localhost:8080/actuator/health 에 접근해 봅시다.
 
     management.health.redis.enabled=false
     management.health.elasticsearch.enabled=false
-    management.health.rabbit.enabled=false  # 희안하게 rabbitmq가 아니다
+    management.health.rabbit.enabled=false
 
 위 구성에 따른 ``health`` 엔드포인트 응답
 
@@ -222,6 +247,9 @@ http://localhost:8080/actuator/health 에 접근해 봅시다.
 * 2-3 사이의 경우에는 A 인스턴스가 기동이 됐지만 최대 10초 간 A 인스턴스에는 요청이 인입되지 않을 것이며, 그 사이 B 인스턴스는 종료된 상태이기 때문에 100%의 확률로 오류가 발생할 것입니다.
 
 자 그렇다면 **정상적인 무중단 배포 시나리오** 를 확인해 봅시다.
+
+무중단 배포 시나리오
+-----------------------------
 
 1. A 인스턴스의 상태를 `DOWN` 으로 변경
 2. 10 초 간 대기 : 로드밸런서 제외 대기
@@ -371,3 +399,20 @@ http://localhost:8080/actuator/health 에 접근해 봅시다.
 ``L7checkCheckController`` 와 ``health`` 엔드포인트를 동시에 검증하는 통합테스트
 
 :Tips: https://github.com/zbum/edu-springboot/tree/master/actuator-sample 참고
+
+
+실제 무중단 배포 시나리오
+-----------------------------
+
+1. ``DELETE http://localhostA:8080/l7check``
+2. ``sleep 10 # 로드밸런서 제외 대기``
+3. A 인스턴스 종료
+4. A 인스턴스 배포 및 시작
+5. ``GET http://localhostA:8080/actuator/health``
+6. ``sleep 10 # 로드밸런서 인입 대기``
+7. ``DELETE http://localhostB:8080/l7check``
+8. ``sleep 10 # 로드밸런서 제외 대기``
+9. B 인스턴스 종료
+10. B 인스턴스 배포 및 시작
+11. ``GET http://localhostB:8080/actuator/health``
+12. ``sleep 10 # 로드밸런서 인입 대기``

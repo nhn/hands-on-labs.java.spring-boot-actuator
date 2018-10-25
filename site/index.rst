@@ -18,4 +18,3 @@
    05-info
    06-health
    07-shutdown
-   08-custom

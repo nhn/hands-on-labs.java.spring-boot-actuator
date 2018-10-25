@@ -11,6 +11,11 @@
    :maxdepth: 1
    :numbered:
 
-   01
-   02
-   03
+   01-ready
+   02-create
+   03-configuration
+   04-endpoint
+   05-info
+   06-health
+   07-shutdown
+   08-custom

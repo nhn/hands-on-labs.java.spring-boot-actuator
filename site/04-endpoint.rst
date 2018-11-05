@@ -148,7 +148,7 @@
 
 **1. 기본상태**
 
-``GET http://localhost:8080/actuator/loggers/com.nhnent.forward.springbootactuatorlevel1``
+``GET http://localhost:8080/actuator/loggers/com.nhnent.forward.springboot.actuator``
 
 .. code-block:: json
 
@@ -163,18 +163,18 @@
 
 .. code-block:: text
 
-    POST http://localhost:8080/actuator/loggers/com.nhnent.forward.springbootactuatorlevel1
+    POST http://localhost:8080/actuator/loggers/com.nhnent.forward.springboot.actuator
 
     {
         "configuredLevel": "DEBUG"
     }
 
 
-* ``com.nhnent.forward.springbootactuatorlevel1`` 에 대한 로그 레벨을 ``DEBUG`` 로 변경
+* ``com.nhnent.forward.springboot.actuator`` 에 대한 로그 레벨을 ``DEBUG`` 로 변경
 
 **3. DEBUG로 변경 확인**
 
-``GET http://localhost:8080/actuator/loggers/com.nhnent.forward.springbootactuatorlevel1``
+``GET http://localhost:8080/actuator/loggers/com.nhnent.forward.springboot.actuator``
 
 .. code-block:: JSON
 

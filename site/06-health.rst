@@ -26,12 +26,20 @@
 
 .. code-block:: properties
 
-    # health 상세 조회 옵션 : never|when-authorized|always
+    # health 상세 조회 옵션 : *never|when-authorized|always
     management.endpoint.health.show-details=never
 
 
-위와 같이 ``never`` 옵션이기 때문에 노출이 되지 않습니다. 위 속성 값을 ``always`` 로 변경 후 다시 애플리케이션을 기동하고
-http://localhost:8080/actuator/health 에 접근해 봅시다.
+아래와 같이 ``never`` 옵션이기 때문에 노출이 되지 않습니다. 위 속성 값을 ``always`` 로 변경합니다.
+
+``src/main/resources/application.properties``
+
+.. code-block:: properties
+
+    management.endpoint.health.show-details=always
+
+
+다시 애플리케이션을 기동하고 http://localhost:8080/actuator/health 에 접근해 봅시다.
 
 .. code-block:: json
 
@@ -301,7 +309,7 @@ http://localhost:8080/actuator/health 에 접근해 봅시다.
 
 .. code-block:: java
 
-    package com.nhnent.forward.springbootactuatorlevel1.health;
+    package com.nhnent.forward.springboot.actuator.health;
 
     import org.springframework.boot.actuate.health.Health;
     import org.springframework.boot.actuate.health.HealthIndicator;
@@ -314,12 +322,12 @@ http://localhost:8080/actuator/health 에 접근해 봅시다.
 
 * 수동으로 헬스 상태를 변경해야하기 때문에 확장한 ``MutableHealthIndicator`` 를 생성합니다.
 
-:Note: 먼저 `com.nhnent.forward.springbootactuatorlevel1.health` 패키지 생성 잊지 마세요.
+:Note: 먼저 `com.nhnent.forward.springboot.actuator.health` 패키지 생성 잊지 마세요.
 
 
 .. code-block:: java
 
-    package com.nhnent.forward.springbootactuatorlevel1.health;
+    package com.nhnent.forward.springboot.actuator.health;
 
     import org.springframework.boot.actuate.health.Health;
     import org.springframework.stereotype.Component;
@@ -347,7 +355,7 @@ http://localhost:8080/actuator/health 에 접근해 봅시다.
 
 .. code-block:: java
 
-    package com.nhnent.forward.springbootactuatorlevel1.health;
+    package com.nhnent.forward.springboot.actuator.health;
 
     import org.springframework.boot.actuate.health.Health;
     import org.springframework.boot.actuate.health.Status;
@@ -400,13 +408,13 @@ http://localhost:8080/actuator/health 에 접근해 봅시다.
 
 .. image:: images/06/L7checkControllerIntegrationTest.png
 
-* 테스트는 위 그림과 같이 ``src/test/java/com.nhnent.forward.springbootactuatorlevel1.health`` 경로에 만들어주세요
+* 테스트는 위 그림과 같이 ``src/test/java/com.nhnent.forward.springboot.actuator.health`` 경로에 만들어주세요
 
 :Tips: 테스트를 만들 때는 `L7checkControllerIntegrationTest.java` 코드에서 macOs: ``Cmd + T`` (Windows: ``Ctrl + T`` )단축키를 이용하시면 쉽게 만들 수 있습니다.
 
 .. code-block:: java
 
-    package com.nhnent.forward.springbootactuatorlevel1.health;
+    package com.nhnent.forward.springboot.actuator.health;
 
     import org.junit.Test;
     import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package com.nhnent.forward.springboot.actuator.level1;
+package com.nhnent.forward.springboot.actuator;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

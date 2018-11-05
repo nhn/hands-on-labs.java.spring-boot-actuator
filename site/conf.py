@@ -19,7 +19,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = u'spring-boot-actuator.level1'
+project = u'spring-boot-actuator'
 copyright = u'2018, Jordan'
 author = u'Jordan'
 
@@ -104,7 +104,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'spring-boot-actuator-level1doc'
+htmlhelp_basename = 'spring-boot-actuator-doc'
 
 # If true, links to the reST sources are added to the pages.
 #
@@ -145,7 +145,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'spring-boot-actuator-level1.tex', u'spring-boot-actuator-level1 Documentation',
+    (master_doc, 'spring-boot-actuator.tex', u'spring-boot-actuator Hands-on Labs',
      u'NHN Entertainment', 'manual'),
 ]
 
@@ -155,7 +155,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'spring-boot-actuator-level1', u'spring-boot-actuator-level1 Documentation',
+    (master_doc, 'spring-boot-actuator', u'spring-boot-actuator Hands-on Labs',
      [author], 1)
 ]
 
@@ -166,8 +166,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'spring-boot-actuator-level1', u'spring-boot-actuator-level1 Documentation',
-     author, 'spring-boot-actuator-level1', 'Hansd-on Labs spring-boot-actuator level1',
+    (master_doc, 'spring-boot-actuator', u'spring-boot-actuator Hands-on Labs',
+     author, 'spring-boot-actuator', 'Hansd-on Labs spring-boot-actuator',
      ''),
 ]
 

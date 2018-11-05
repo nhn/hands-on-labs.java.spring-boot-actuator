@@ -62,7 +62,7 @@
   아래 과정을 따라서 실행해보세요
 
   1. 터미널 도구를 이용해서 프로젝트 root로 이동
-  2. ``./mvnw clean package``
+  2. macOs: ``./mvnw clean package``, windows: ``mvnw.bat clean package``
   3. ``java -jar target/*.jar`` 로 애플리케이션 실행
 
     * 이미 기동된 애플리케이션이 있으면 `8080` 포트가 충돌하므로, 기존 애플리케이션은 종료해주세요
@@ -91,14 +91,14 @@
     <name>spring-boot-actuator-level1</name>
 
 
-:Note: ``./mvnw`` 는 메이븐랩퍼 명령어 입니다.
+:Note: ``./mvnw``, ``mvnw.bat`` 는 메이븐랩퍼 명령어 입니다.
 
   * 메이븐 버전 별로 빌드 산출물이 달라질 수 있기 때문에 OS에 설치된 메이븐 버전 의존성에 따른 부수효과(side-effect)를 최소화 하고 일관된 빌드툴 버전을 위해서 `코드베이스` 에 포함되는 툴입니다.
   * 스프링 이니셜라이저(Spring Initializr)를 이용해서 프로젝트를 생성하면 기본적으로 포함됩니다.
 
 
-그 외
-==========
+그 외 방법 링크
+=========================
 
 * `InfoContributor 구현`_
 * `Git Commit 정보`_

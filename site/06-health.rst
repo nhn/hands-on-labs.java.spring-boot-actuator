@@ -279,7 +279,11 @@ http://localhost:8080/actuator/health 에 접근해 봅시다.
 사용자 정의 ``HealthIndicator``
 ======================================
 
+사용자 정의 ``HealthIndicator`` 구현
+------------------------------------------------
+
 .. code-block:: java
+    package org.springframework.boot.actuate.health;
 
     @FunctionalInterface
     public interface HealthIndicator {
@@ -293,19 +297,38 @@ http://localhost:8080/actuator/health 에 접근해 봅시다.
 
 
 * ``HealthIndicator`` 인터페이스
+* 이 인터페이스를 직접 **구현** 해야 합니다.
 
 .. code-block:: java
 
-    interface ChangableHealthIndicator extends HealthIndicator {
-        void changeHealth(Health health)
+    package com.nhnent.forward.springbootactuatorlevel1.health;
+
+    import org.springframework.boot.actuate.health.Health;
+    import org.springframework.boot.actuate.health.HealthIndicator;
+
+    public interface MutableHealthIndicator extends HealthIndicator {
+
+        void setHealth(Health health);
     }
 
 
-* 수동으로 헬스 상태를 변경해야하기 때문에 확장한 ``ChangableHealthIndicator``
+* 수동으로 헬스 상태를 변경해야하기 때문에 확장한 ``MutableHealthIndicator`` 를 생성합니다.
+
+:Note: 먼저 `com.nhnent.forward.springbootactuatorlevel1.health` 패키지 생성 잊지 마세요.
+
 
 .. code-block:: java
 
-    public class ManualHealthIndicator implements ChangableHealthIndicator {
+    package com.nhnent.forward.springbootactuatorlevel1.health;
+
+    import org.springframework.boot.actuate.health.Health;
+    import org.springframework.stereotype.Component;
+
+    import java.util.concurrent.atomic.AtomicReference;
+
+    @Component
+    public class ManualHealthIndicator implements MutableHealthIndicator {
+
         private final AtomicReference<Health> healthRef = new AtomicReference<>(Health.up().build());
 
         @Override
@@ -314,22 +337,34 @@ http://localhost:8080/actuator/health 에 접근해 봅시다.
         }
 
         @Override
-        public void changeHealth(Health health) {
+        public void setHealth(Health health) {
             healthRef.set(health);
         }
     }
 
 
-* 수동으로 헬스 상태를 변경하는 ``ManualHealthIndicator``
+* 수동으로 헬스 상태를 변경하는 ``ManualHealthIndicator`` 를 구현합니다.
 
 .. code-block:: java
 
-    @RestController
-    @RequestMapping("${l7check.uri:/l7check}")
-    public class L7checkCheckController {
-        private final ChangableHealthIndicator indicator;
+    package com.nhnent.forward.springbootactuatorlevel1.health;
 
-        public L7checkCheckController(ChangableHealthIndicator indicator) {
+    import org.springframework.boot.actuate.health.Health;
+    import org.springframework.boot.actuate.health.Status;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.web.bind.annotation.DeleteMapping;
+    import org.springframework.web.bind.annotation.GetMapping;
+    import org.springframework.web.bind.annotation.PostMapping;
+    import org.springframework.web.bind.annotation.ResponseStatus;
+
+    import javax.servlet.http.HttpServletRequest;
+
+    @RestController(value = "/l7check")
+    public class L7checkController {
+        private final MutableHealthIndicator indicator;
+
+        public L7checkController(MutableHealthIndicator indicator) {
             this.indicator = indicator;
         }
 
@@ -345,24 +380,51 @@ http://localhost:8080/actuator/health 에 접근해 봅시다.
         @DeleteMapping
         @ResponseStatus(HttpStatus.NO_CONTENT)
         public void down(HttpServletRequest request) {
-            indicator.changeHealth(Health.down().build());
+            indicator.setHealth(Health.down().build());
         }
 
         @PostMapping
         @ResponseStatus(HttpStatus.CREATED)
         public void up(HttpServletRequest request) {
-            indicator.changeHealth(Health.up().build());
+            indicator.setHealth(Health.up().build());
         }
     }
 
 
-* ``ManualHealthIndicator`` 에 의존하는 ``L7checkCheckController``
+
+* ``ManualHealthIndicator`` 에 의존하는 ``L7checkCheckController`` 룰 작성합니다.
+
+
+사용자 정의 ``HealthIndicator`` 테스트
+-------------------------------------------------------
+
+.. image:: images/06/L7checkControllerIntegrationTest.png
+
+* 테스트는 위 그림과 같이 ``src/test/java/com.nhnent.forward.springbootactuatorlevel1.health`` 경로에 만들어주세요
+
+:Tips: 테스트를 만들 때는 `L7checkControllerIntegrationTest.java` 코드에서 macOs: ``Cmd + T`` (Windows: ``Ctrl + T`` )단축키를 이용하시면 쉽게 만들 수 있습니다.
 
 .. code-block:: java
 
+    package com.nhnent.forward.springbootactuatorlevel1.health;
+
+    import org.junit.Test;
+    import org.junit.runner.RunWith;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.boot.test.context.SpringBootTest;
+    import org.springframework.boot.test.web.client.TestRestTemplate;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.test.context.junit4.SpringRunner;
+
+    import java.util.concurrent.TimeUnit;
+
+    import static org.hamcrest.Matchers.is;
+    import static org.junit.Assert.*;
+
     @RunWith(SpringRunner.class)
     @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-    public class L7checkCheckControllerIntegrationTest {
+    public class L7checkControllerTest {
         private static final String L7CHECK = "/l7check";
         private static final String HEALTH = "/actuator/health";
         @Autowired
@@ -396,13 +458,23 @@ http://localhost:8080/actuator/health 에 접근해 봅시다.
     }
 
 
-``L7checkCheckController`` 와 ``health`` 엔드포인트를 동시에 검증하는 통합테스트
+* ``L7checkController`` 와 ``health`` 엔드포인트를 동시에 검증하는 통합테스트
 
-:Tips: https://github.com/zbum/edu-springboot/tree/master/actuator-sample 참고
+.. image:: images/06/TestRun.png
 
+클래스 좌측의 녹색 버튼을 누르면 테스트가 실행됩니다.
+
+:Tips: 메서드 좌측의 녹색 버튼을 누르면 해당 메서드 한 건만 테스트 실행됩니다.
+
+.. image:: images/06/L7checkControllerTest-Success.png
+
+그러면 위와 같은 성공하는 결과를 확인할 수 있습니다.
+만약 잘 안돼면 Hand-On Labs 운영진에 도움을 요청해주세요
 
 실제 무중단 배포 시나리오
 -----------------------------
+
+**마지막으로 다시 한 번 무중단 배포 시나리오를 위에서 구현한 에제를 바탕으로 알아봅시다**
 
 1. ``DELETE http://localhostA:8080/l7check``
 2. ``sleep 10 # 로드밸런서 제외 대기``

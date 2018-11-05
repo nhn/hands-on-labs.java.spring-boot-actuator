@@ -18,3 +18,4 @@
    05-info
    06-health
    07-shutdown
+   99-wrap-up

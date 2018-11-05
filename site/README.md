@@ -4,6 +4,7 @@
 
 ```bash
 brew install sphinx-doc
+pip install sphinx_rtd_theme
 ```
 
 **HTML 문서 만들기**

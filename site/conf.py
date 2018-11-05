@@ -66,7 +66,7 @@ language = u'ko'
 exclude_patterns = [u'_build', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = None
+pygments_style = 'sphinx'
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -75,12 +75,15 @@ pygments_style = None
 # a list of builtin themes.
 #
 html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
+html_theme_options = {
+    'display_version': False,
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -103,17 +106,31 @@ html_static_path = ['_static']
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'spring-boot-actuator-level1doc'
 
+# If true, links to the reST sources are added to the pages.
+#
+html_show_sourcelink = False
+
+# If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
+#
+html_show_sphinx = False
+
+# If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
+#
+html_show_copyright = True
+
+htmlhelp_basename = 'holdoc'
+
 
 # -- Options for LaTeX output ------------------------------------------------
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     #
-    # 'papersize': 'letterpaper',
+    'papersize': 'a4paper',
 
     # The font size ('10pt', '11pt' or '12pt').
     #
-    # 'pointsize': '10pt',
+    # 'pointsize': '12pt',
 
     # Additional stuff for the LaTeX preamble.
     #
@@ -129,7 +146,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'spring-boot-actuator-level1.tex', u'spring-boot-actuator-level1 Documentation',
-     u'Jordan', 'manual'),
+     u'NHN Entertainment', 'manual'),
 ]
 
 
@@ -150,8 +167,8 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'spring-boot-actuator-level1', u'spring-boot-actuator-level1 Documentation',
-     author, 'spring-boot-actuator-level1', 'One line description of project.',
-     'Miscellaneous'),
+     author, 'spring-boot-actuator-level1', 'Hansd-on Labs spring-boot-actuator level1',
+     ''),
 ]
 
 

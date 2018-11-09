@@ -115,7 +115,7 @@
 
 * 만약 단 하나의 항목이라도 **DOWN** 상태라면 애플리케이션의 상태도 **DOWN** 이 됩니다.
 * **UP** 상태일 시 응답 HTTP 상태코드는 `200` 입니다.
-* **DOWN** 상태일 시 응답 HTTP 상태코드는 `503` (Service Unavailable) 입니다.
+* **DOWN** 상태일 시 응답 HTTP 상태코드는 `503` (서비스를 사용할 수 없음) 입니다.
 
 모든 인프라의 상태에 의존한다면?
 ---------------------------------
@@ -190,7 +190,7 @@
 
 * 바로 위와 같이 ``health`` 엔드포인트에 `Redis` 상태가 포함되지 않게 비활성화 시키면 됩니다.
 
-일반적으로 `DiskSpace` 나 `DB` 가 DOWN 되면 아마도 애플리케이션은 정상적인 서비스가 불가능 할 것 입니다.
+일반적으로 `DiskSpace` 나 `DB` 가 DOWN 되면 애플리케이션은 정상적인 서비스가 불가능 할 것 입니다.
 하지만 `Redis`, `Elasticsearch`, `Rabbitmq` 와 같은 인프라가 DOWN 될지라도 서비스는 가용성을 확보해야할 것 같습니다.
 
 그렇다면 아래와 같이 설정을 하는 것을 추천합니다.
@@ -251,7 +251,7 @@
 
 **하지만**
 
-* 1-2 사이에서 로드밸런서는 A 인스턴스가 종료되었지만 최대 10초 간 A 인스턴스에 요청이 날라갈 것이며, 정상적이지 않은 상황이기 때문에 50%의 확률로 `502` 오류가 발생할 것입니다.
+* 1-2 사이에서 로드밸런서는 A 인스턴스가 종료되었지만 최대 10초 간 A 인스턴스에 요청이 날라갈 것이며, 정상적이지 않은 상황이기 때문에 50%의 확률로 `502`(잘못된 게이트웨이) 또는 `503`(잘못된 게이트웨이) 오류가 발생할 것입니다.
 * 2-3 사이의 경우에는 A 인스턴스가 기동이 됐지만 최대 10초 간 A 인스턴스에는 요청이 인입되지 않을 것이며, 그 사이 B 인스턴스는 종료된 상태이기 때문에 100%의 확률로 오류가 발생할 것입니다.
 
 자 그렇다면 **정상적인 무중단 배포 시나리오** 를 확인해 봅시다.
@@ -272,7 +272,7 @@
 11. B 인스턴스 기동 확인 : ``health`` = `UP` 확인
 12. 10 초 간 대기 : 로드밸런서 인입 대기
 
-전통적인 웹 애플리케이션의 경우에는 이를 수동으로 애플리케이션의 상태를 `Down` 으로 바꿀 수 있게 로드밸런서에서 특정 html 파일 요청을 하는 것으로 했습니다
+전통적인 웹 애플리케이션의 경우에는 이를 수동으로 애플리케이션의 상태를 `Down` 으로 바꿀 수 있게 로드밸런서에서 특정 html 파일을 지우는 식으로 제어했습니다.
 
 * `l7check.html` 과 같은 정적 html 파일을 종료 전에 지우고, 배포 후 html 파일을 다시 생성하는 방법으로 로드밸런서 제외/인입 제어
 
@@ -291,6 +291,7 @@
 ------------------------------------------------
 
 .. code-block:: java
+
     package org.springframework.boot.actuate.health;
 
     @FunctionalInterface
@@ -309,7 +310,7 @@
 
 .. code-block:: java
 
-    package com.nhnent.forward.springboot.actuator.health;
+    package com.nhnent.forward.springbootactuator.health;
 
     import org.springframework.boot.actuate.health.Health;
     import org.springframework.boot.actuate.health.HealthIndicator;
@@ -322,12 +323,12 @@
 
 * 수동으로 헬스 상태를 변경해야하기 때문에 확장한 ``MutableHealthIndicator`` 를 생성합니다.
 
-:Note: 먼저 `com.nhnent.forward.springboot.actuator.health` 패키지 생성 잊지 마세요.
+:Note: 먼저 `com.nhnent.forward.springbootactuator.health` 패키지 생성 잊지 마세요.
 
 
 .. code-block:: java
 
-    package com.nhnent.forward.springboot.actuator.health;
+    package com.nhnent.forward.springbootactuator.health;
 
     import org.springframework.boot.actuate.health.Health;
     import org.springframework.stereotype.Component;
@@ -355,20 +356,18 @@
 
 .. code-block:: java
 
-    package com.nhnent.forward.springboot.actuator.health;
+    package com.nhnent.forward.springbootactuator.health;
 
     import org.springframework.boot.actuate.health.Health;
     import org.springframework.boot.actuate.health.Status;
     import org.springframework.http.HttpStatus;
     import org.springframework.http.ResponseEntity;
-    import org.springframework.web.bind.annotation.DeleteMapping;
-    import org.springframework.web.bind.annotation.GetMapping;
-    import org.springframework.web.bind.annotation.PostMapping;
-    import org.springframework.web.bind.annotation.ResponseStatus;
+    import org.springframework.web.bind.annotation.*;
 
     import javax.servlet.http.HttpServletRequest;
 
-    @RestController(value = "/l7check")
+    @RestController
+    @RequestMapping("/l7check")
     public class L7checkController {
         private final MutableHealthIndicator indicator;
 
@@ -400,21 +399,21 @@
 
 
 
-* ``ManualHealthIndicator`` 에 의존하는 ``L7checkCheckController`` 룰 작성합니다.
+* ``ManualHealthIndicator`` 에 의존하는 ``L7checkController`` 룰 작성합니다.
 
 
 사용자 정의 ``HealthIndicator`` 테스트
 -------------------------------------------------------
 
-.. image:: images/06/L7checkControllerIntegrationTest.png
+.. image:: images/06/L7checkControllerTest.png
 
-* 테스트는 위 그림과 같이 ``src/test/java/com.nhnent.forward.springboot.actuator.health`` 경로에 만들어주세요
+* 테스트는 위 그림과 같이 ``src/test/java/com.nhnent.forward.springbootactuator.health`` 경로에 생성해주세요.
 
-:Tips: 테스트를 만들 때는 `L7checkControllerIntegrationTest.java` 코드에서 macOs: ``Cmd + T`` (Windows: ``Ctrl + T`` )단축키를 이용하시면 쉽게 만들 수 있습니다.
+:Tips: 테스트를 만들 때는 `L7checkControllerTest.java` 코드에서 macOs: ``Cmd + T`` (Windows: ``Ctrl + T`` )단축키를 이용하시면 쉽게 만들 수 있습니다.
 
 .. code-block:: java
 
-    package com.nhnent.forward.springboot.actuator.health;
+    package com.nhnent.forward.springbootactuator.health;
 
     import org.junit.Test;
     import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package com.nhnent.forward.springboot.actuator.health;
+package com.nhnent.forward.springbootactuator.health;
 
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.Status;
@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-@RestController(value = "/l7check")
+@RestController
+@RequestMapping("/l7check")
 public class L7checkController {
     private final MutableHealthIndicator indicator;
 

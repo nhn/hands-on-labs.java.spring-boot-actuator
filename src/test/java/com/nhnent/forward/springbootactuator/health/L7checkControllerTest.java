@@ -1,4 +1,4 @@
-package com.nhnent.forward.springboot.actuator.health;
+package com.nhnent.forward.springbootactuator.health;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
+@SuppressWarnings("WeakerAccess")
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class L7checkControllerTest {

@@ -3,8 +3,6 @@
 
 ### RST ###
 /site/_build/
-/site/_static/
-/site/_templates/
 
 ### STS ###
 .apt_generated

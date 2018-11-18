@@ -67,7 +67,7 @@ No ``kill -9 {PID}``
 
 *아래 코드 내용은 실습하지 않고 그냥 읽어봅시다*
 
-.. code-block:: bash
+.. code-block:: java
 
     @Configuration
     public class ActuatorSecurity extends WebSecurityConfigurerAdapter {

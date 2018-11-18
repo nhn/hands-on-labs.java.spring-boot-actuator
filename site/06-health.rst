@@ -281,7 +281,7 @@
 
 다음 장에서 위 이슈를 해결할 수 있는 사용자 정의 ``HealthIndicator`` 를 만들어 보겠습니다.
 
-* ``ManualHealthIndicator``
+* ``MutableHealthIndicator``
 
 
 사용자 정의 ``HealthIndicator``
@@ -336,7 +336,7 @@
     import java.util.concurrent.atomic.AtomicReference;
 
     @Component
-    public class ManualHealthIndicator implements MutableHealthIndicator {
+    public class MutableHealthIndicator implements MutableHealthIndicator {
 
         private final AtomicReference<Health> healthRef = new AtomicReference<>(Health.up().build());
 
@@ -352,7 +352,7 @@
     }
 
 
-* 수동으로 헬스 상태를 변경하는 ``ManualHealthIndicator`` 를 구현합니다.
+* 수동으로 헬스 상태를 변경하는 ``MutableHealthIndicator`` 를 구현합니다.
 
 .. code-block:: java
 
@@ -399,13 +399,13 @@
 
 
 
-* ``ManualHealthIndicator`` 에 의존하는 ``L7checkController`` 룰 작성합니다.
+* ``MutableHealthIndicator`` 에 의존하는 ``L7checkController`` 룰 작성합니다.
 
 
 사용자 정의 ``HealthIndicator`` 테스트
 -------------------------------------------------------
 
-.. image:: images/06/L7checkControllerTest.png
+.. image:: images/06/L7checkControllerIntegrationTest.png
 
 * 테스트는 위 그림과 같이 ``src/test/java/com.nhnent.forward.springbootactuator.health`` 경로에 생성해주세요.
 

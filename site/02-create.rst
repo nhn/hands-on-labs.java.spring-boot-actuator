@@ -70,9 +70,9 @@ spring-boot 애플리케이션 테스트
 
 .. image:: images/02/application-test.png
 
-* `SpringBootActuatorLevel1AplicationTests` 를 테스트해 봅니다.
+* `SpringBootActuatorAplicationTests` 를 테스트해 봅니다.
 
 .. image:: images/02/application-test-ok.png
 
-* 테스트 성공 !!! > **애플리케이션이 정상적으로 설정됨**을 확인할 수 있습니다.
+* 테스트 성공 !!! > **애플리케이션이 정상적으로 설정됨** 을 확인할 수 있습니다.
 

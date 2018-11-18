@@ -20,8 +20,8 @@
 # -- Project information -----------------------------------------------------
 
 project = u'spring-boot-actuator'
-copyright = u'2018, Jordan'
-author = u'Jordan'
+copyright = u'NHN Entertainment'
+author = u''
 
 # The short X.Y version
 version = u''
@@ -188,3 +188,6 @@ epub_title = project
 
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
+
+def setup(app):
+    app.add_stylesheet('css/custom.css')

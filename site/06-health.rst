@@ -336,7 +336,7 @@
     import java.util.concurrent.atomic.AtomicReference;
 
     @Component
-    public class MutableHealthIndicator implements MutableHealthIndicator {
+    public class ManualHealthIndicator implements MutableHealthIndicator {
 
         private final AtomicReference<Health> healthRef = new AtomicReference<>(Health.up().build());
 
@@ -352,7 +352,7 @@
     }
 
 
-* 수동으로 헬스 상태를 변경하는 ``MutableHealthIndicator`` 를 구현합니다.
+* 수동으로 헬스 상태를 변경하는 ``ManualHealthIndicator`` 를 구현합니다.
 
 .. code-block:: java
 

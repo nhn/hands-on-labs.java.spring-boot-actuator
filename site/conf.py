@@ -20,7 +20,7 @@
 # -- Project information -----------------------------------------------------
 
 project = u'spring-boot-actuator'
-copyright = u'NHN Entertainment'
+copyright = u'NHN Corp. All rights reserved.'
 author = u''
 
 # The short X.Y version

@@ -7,15 +7,15 @@ Spring Initializr로 프로젝트 생성
 
 https://start.spring.io/ 에 접속하겠습니다.
 
-Generate a ``Maven Project`` with ``java`` and Spring Boot ``2.0.6``
+Generate a ``Maven Project`` with ``java`` and Spring Boot ``2.2.1``
 
-* Group : ``com.nhnent.forward``
+* Group : ``com.nhn.forward``
 * Artifact : ``spring-boot-actuator``
 * **Dependencies** : ``Web``, ``Actuator``, ``DevTools``
 
 .. image:: images/02/spring-initializr.png
 
-**Generate Project** 로 프로젝트 생성합니다.
+**Generate** 로 프로젝트 생성합니다.
 
 * 의존성에 꼭 ``Web``, ``DevTools`` 을 추가하도록 합니다.(스크린 샷에는 가려져서 안 보입니다.)
 * ``spring-boot-actuator.zip`` 파일을 다운로드 해서 적절한 위치에 압축해제 합니다.

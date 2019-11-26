@@ -5,16 +5,16 @@
 
     <groupId>com.nhnent.forward</groupId>
     <artifactId>spring-boot-actuator</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0.RELEASE</version>
     <packaging>jar</packaging>
 
     <name>spring-boot-actuator1</name>
-    <description>NHN Forward Hannd-on labs : Spring Boot Actuator Step 1</description>
+    <description>NHN Forward Hand-on labs : Spring Boot Actuator Step 1</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.6.RELEASE</version>
+        <version>2.2.1.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 

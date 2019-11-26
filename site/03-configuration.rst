@@ -33,6 +33,10 @@ http://localhost:8080/actuator 에 접속해서 웹 환경에서 기본으로 �
                 "href": "http://localhost:8080/actuator",
                 "templated": false
             },
+            "health-path": {
+                "href": "http://localhost:8080/actuator/health/{*path}",
+                "templated": true
+            },
             "health": {
                 "href": "http://localhost:8080/actuator/health",
                 "templated": false

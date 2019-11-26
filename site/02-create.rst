@@ -70,7 +70,7 @@ spring-boot 애플리케이션 테스트
 
 .. image:: images/02/application-test.png
 
-* `SpringBootActuatorAplicationTests` 를 테스트해 봅니다.
+* `SpringBootActuatorApplicationTests` 를 테스트해 봅니다.
 
 .. image:: images/02/application-test-ok.png
 

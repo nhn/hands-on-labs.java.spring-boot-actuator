@@ -11,13 +11,13 @@
 환경 변수에 ``info.`` 로 시작하는 변수를 추가합니다.
 일반적으로 ``application.properties`` 에 추가합니다.
 
-``src/main/resources/applicatoin.properties``
+``src/main/resources/application.properties``
 
 .. code-block:: properties
 
     info.app.name=actuator-levle1
     info.app.version=1.0
-    info.app.corporation=nhnent
+    info.app.corporation=nhn
 
 * http://localhost:8080/actuator/info 로 확인해보겠습니다.
 
@@ -27,7 +27,7 @@
         "app": {
             "name": "actuator-levle1",
             "version": "1.0",
-            "corporation": "nhnent"
+            "corporation": "nhn"
         }
     }
 
@@ -89,7 +89,7 @@
             "version": "0.0.1-SNAPSHOT",
             "artifact": "spring-boot-actuator-level1",
             "name": "spring-boot-actuator-level1",
-            "group": "com.nhnent.forward",
+            "group": "com.nhn.forward",
             "time": "2018-10-25T05:18:50.466Z"
         }
     }
@@ -98,7 +98,7 @@
 
 .. code-block:: xml
 
-    <groupId>com.nhnent.forward</groupId>
+    <groupId>com.nhn.forward</groupId>
     <artifactId>spring-boot-actuator-level1</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-boot-actuator-level1</name>
@@ -127,13 +127,13 @@
         "app": {
             "name": "actuator-levle1",
             "version": "1.0",
-            "corporation": "nhnent"
+            "corporation": "nhn"
         },
         "build": {
             "version": "0.0.1-SNAPSHOT",
             "artifact": "spring-boot-actuator-level1",
             "name": "spring-boot-actuator-level1",
-            "group": "com.nhnent.forward",
+            "group": "com.nhn.forward",
             "time": "2018-10-25T05:18:50.466Z"
         },
         "git": {

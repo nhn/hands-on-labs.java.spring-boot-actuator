@@ -1,4 +1,4 @@
-package com.nhnent.forward.springbootactuator.health;
+package com.nhn.forward.springbootactuator.health;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

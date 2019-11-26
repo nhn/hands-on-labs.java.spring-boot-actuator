@@ -1,4 +1,4 @@
-package com.nhnent.forward.springbootactuator;
+package com.nhn.forward.springbootactuator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

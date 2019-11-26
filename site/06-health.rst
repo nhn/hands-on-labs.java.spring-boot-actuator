@@ -251,7 +251,7 @@
 
 **하지만**
 
-* 1-2 사이에서 로드밸런서는 A 인스턴스가 종료되었지만 최대 10초 간 A 인스턴스에 요청이 날라갈 것이며, 정상적이지 않은 상황이기 때문에 50%의 확률로 `502`(잘못된 게이트웨이) 또는 `503`(잘못된 게이트웨이) 오류가 발생할 것입니다.
+* 1-2 사이에서 로드밸런서는 A 인스턴스가 종료되었지만 최대 10초 간 A 인스턴스에 요청이 날라갈 것이며, 정상적이지 않은 상황이기 때문에 50%의 확률로 ``502`` (잘못된 게이트웨이) 또는 ``503`` (잘못된 게이트웨이) 오류가 발생할 것입니다.
 * 2-3 사이의 경우에는 A 인스턴스가 기동이 됐지만 최대 10초 간 A 인스턴스에는 요청이 인입되지 않을 것이며, 그 사이 B 인스턴스는 종료된 상태이기 때문에 100%의 확률로 오류가 발생할 것입니다.
 
 자 그렇다면 **정상적인 무중단 배포 시나리오** 를 확인해 봅시다.
@@ -310,7 +310,7 @@
 
 .. code-block:: java
 
-    package com.nhnent.forward.springbootactuator.health;
+    package com.nhn.forward.springbootactuator.health;
 
     import org.springframework.boot.actuate.health.Health;
     import org.springframework.boot.actuate.health.HealthIndicator;
@@ -323,12 +323,12 @@
 
 * 수동으로 헬스 상태를 변경해야하기 때문에 확장한 ``MutableHealthIndicator`` 를 생성합니다.
 
-:Note: 먼저 `com.nhnent.forward.springbootactuator.health` 패키지 생성 잊지 마세요.
+:Note: 먼저 `com.nhn.forward.springbootactuator.health` 패키지 생성 잊지 마세요.
 
 
 .. code-block:: java
 
-    package com.nhnent.forward.springbootactuator.health;
+    package com.nhn.forward.springbootactuator.health;
 
     import org.springframework.boot.actuate.health.Health;
     import org.springframework.stereotype.Component;
@@ -356,7 +356,7 @@
 
 .. code-block:: java
 
-    package com.nhnent.forward.springbootactuator.health;
+    package com.nhn.forward.springbootactuator.health;
 
     import org.springframework.boot.actuate.health.Health;
     import org.springframework.boot.actuate.health.Status;
@@ -407,13 +407,13 @@
 
 .. image:: images/06/L7checkControllerIntegrationTest.png
 
-* 테스트는 위 그림과 같이 ``src/test/java/com.nhnent.forward.springbootactuator.health`` 경로에 생성해주세요.
+* 테스트는 위 그림과 같이 ``src/test/java/com.nhn.forward.springbootactuator.health`` 경로에 생성해주세요.
 
 :Tips: 테스트를 만들 때는 `L7checkControllerTest.java` 코드에서 macOs: ``Cmd + T`` (Windows: ``Ctrl + T`` )단축키를 이용하시면 쉽게 만들 수 있습니다.
 
 .. code-block:: java
 
-    package com.nhnent.forward.springbootactuator.health;
+    package com.nhn.forward.springbootactuator.health;
 
     import org.junit.Test;
     import org.junit.runner.RunWith;

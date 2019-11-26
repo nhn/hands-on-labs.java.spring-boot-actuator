@@ -114,7 +114,7 @@
 
 * 현재 웹 애플리케이션 상태에서는 노출되지 않습니다. 아래 2가지 조건을 만족해야합니다.
 
-  * ``logging.file`` 또는 ``logging.path`` 부트 속성을 이용해서 로그 파일 출력이 활성화
+  * ``logging.file.name`` 또는 ``logging.file.path`` 부트 속성을 이용해서 로그 파일 출력이 활성화
 
     * 만약 다른 방법으로 로그 파일을 관리한다면 ``management.endpoint.logfile.external-file`` 속성으로 가능합니다.
   * 웹 애플리케이션
@@ -126,7 +126,7 @@
 
 .. code-block:: properties
 
-    logging.file=target/application.log
+    logging.file.name=target/application.log
 
 위와 같이 설정하고 애플리케이션을 재가동 후 아래 엔드포인트에 접근하면 로그를 확인할 수 있습니다.
 추가적으로 `HTTP range requests`_ 를 통해서 로그의 특정 범위만 요청하거나 분할 요청할 수 있습니다.
@@ -149,7 +149,7 @@
 
 **1. 기본상태**
 
-``GET http://localhost:8080/actuator/loggers/com.nhnent.forward.springbootactuator``
+``GET http://localhost:8080/actuator/loggers/com.nhn.forward.springbootactuator``
 
 .. code-block:: json
 
@@ -164,18 +164,18 @@
 
 .. code-block:: text
 
-    POST http://localhost:8080/actuator/loggers/com.nhnent.forward.springbootactuator
+    POST http://localhost:8080/actuator/loggers/com.nhn.forward.springbootactuator
 
     {
         "configuredLevel": "DEBUG"
     }
 
 
-* ``com.nhnent.forward.springbootactuator`` 에 대한 로그 레벨을 ``DEBUG`` 로 변경
+* ``com.nhn.forward.springbootactuator`` 에 대한 로그 레벨을 ``DEBUG`` 로 변경
 
 **3. DEBUG로 변경 확인**
 
-``GET http://localhost:8080/actuator/loggers/com.nhnent.forward.springbootactuator``
+``GET http://localhost:8080/actuator/loggers/com.nhn.forward.springbootactuator``
 
 .. code-block:: JSON
 
@@ -263,23 +263,6 @@ GZip으로 압축된 hprof 힙 덤프 파일을 다운로드.
         ],
         "availableTags": []
     }
-
-
-``httptrace``
-=============================
-
-최근 100개 HTTP 요청을 반환.
-
-* http://localhost:8080/actuator/httptrace
-* 응답 모델이 매우 복잡하기 때문에 직접 호출해서 확인해 봅시다.
-
-``httptrace`` 관련 구성
-
-.. code-block:: properties
-
-    management.trace.http.include=request-headers,response-headers,cookies,errors
-
-* 노출 시 포함 시킬 Trace 관련 요소들 지정 가능합니다.
 
 
 ``mappings``
